@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines unittests for models/amenity.py
+"""Defines unittests for models/amenity.py.
 Unittest classes:
     TestAmenity_instantiation
     TestAmenity_save
@@ -22,7 +22,7 @@ class TestAmenity_instantiation(unittest.TestCase):
     def test_new_instance_stored_in_objects(self):
         self.assertIn(Amenity(), models.storage.all().values())
 
-    def test_is_is_public_str(self):
+    def test_id_is_public_str(self):
         self.assertEqual(str, type(Amenity().id))
 
     def test_created_at_is_public_datetime(self):
@@ -54,7 +54,7 @@ class TestAmenity_instantiation(unittest.TestCase):
         am2 = Amenity()
         self.assertLess(am1.updated_at, am2.updated_at)
 
-    def test_str_represantation(self):
+    def test_str_representation(self):
         dt = datetime.today()
         dt_repr = repr(dt)
         am = Amenity()
@@ -62,7 +62,7 @@ class TestAmenity_instantiation(unittest.TestCase):
         am.created_at = am.updated_at = dt
         amstr = am.__str__()
         self.assertIn("[Amenity] (123456)", amstr)
-        delf.assertIn("'id': '123456'", amstr)
+        self.assertIn("'id': '123456'", amstr)
         self.assertIn("'created_at': " + dt_repr, amstr)
         self.assertIn("'updated_at': " + dt_repr, amstr)
 
@@ -94,15 +94,15 @@ class TestAmenity_save(unittest.TestCase):
         except IOError:
             pass
 
-        def tearDown(self):
+    def tearDown(self):
         try:
-            os.rename("file.json")
+            os.remove("file.json")
         except IOError:
             pass
         try:
             os.rename("tmp", "file.json")
-        except IOError
-        pass
+        except IOError:
+            pass
 
     def test_one_save(self):
         am = Amenity()
@@ -112,7 +112,7 @@ class TestAmenity_save(unittest.TestCase):
         self.assertLess(first_updated_at, am.updated_at)
 
     def test_two_saves(self):
-        am = amenity()
+        am = Amenity()
         sleep(0.05)
         first_updated_at = am.updated_at
         am.save()
@@ -141,7 +141,7 @@ class TestAmenity_to_dict(unittest.TestCase):
     def test_to_dict_type(self):
         self.assertTrue(dict, type(Amenity().to_dict()))
 
-    def test_to_dict_types(self):
+    def test_to_dict_contains_correct_keys(self):
         am = Amenity()
         self.assertIn("id", am.to_dict())
         self.assertIn("created_at", am.to_dict())
@@ -168,22 +168,22 @@ class TestAmenity_to_dict(unittest.TestCase):
         am.id = "123456"
         am.created_at = am.updated_at = dt
         tdict = {
-                'id': '123456',
-                '__class__': 'Amenity',
-                'created_at': dt.isoformat(),
-                'updated_at': dt.isoformat(),
-                }
+            'id': '123456',
+            '__class__': 'Amenity',
+            'created_at': dt.isoformat(),
+            'updated_at': dt.isoformat(),
+        }
         self.assertDictEqual(am.to_dict(), tdict)
 
-    def test_contrast_todict_dunder_dict(self):
+    def test_contrast_to_dict_dunder_dict(self):
         am = Amenity()
         self.assertNotEqual(am.to_dict(), am.__dict__)
 
-    def test_to_dict_with arg(self):
+    def test_to_dict_with_arg(self):
         am = Amenity()
         with self.assertRaises(TypeError):
             am.to_dict(None)
 
 
-    if __name__ == "__main__":
-        unittest.main()
+if __name__ == "__main__":
+    unittest.main()

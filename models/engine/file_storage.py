@@ -14,13 +14,13 @@ from models.review import Review
 
 class FileStorage:
     """ serializes instances to a JSON file and deserializes JSON file
-    to instances
+    to instances.
     ATTRIBUTES:
-    __file_path is a private class attribute (str) path to the JSON file
-    __objects ids a private class attribute (dict) that is empty but will
+    __file_pathh is a private class attribute (str) path to the JSON file
+    __objects is a private class attribute (dict) that is empty but will
     store all objects by <class name>.id ex: to store a BaseModel object
-    with id=12121212, the key will be BaseMOdel.12121212
-    PUBLIC INSTANCE METHODS:
+    with id=12121212, the key will be BaseModel.12121212)
+    PUBLIC INSTANCE METHODS
     all():
     new(obj):
     save():
@@ -41,16 +41,16 @@ class FileStorage:
             FileStorage.__objects[key] = obj
 
     def save(self):
-        """ save method seraializes __objects to the JSON file
+        """ save method serializes __objects to the JSON file
         (path: __file_path) """
         with open(FileStorage.__file_path, encoding='utf-8', mode='w') as file:
             new_d = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
             json.dump(new_d, file)
 
     def reload(self):
-        """ desesrializes the JSON file to __objects
+        """ deserializes the JSON file to __objects
         (only if the JSON file (__file_path) exists;
-        otherwise, do nothing if the file does not exist,
+        otherwise, do nothing. If the file doesnt exist,
         no exception should be raised) """
         try:
             with open(FileStorage.__file_path, 'r', encoding='utf-8') as f:

@@ -2,6 +2,7 @@
 """Defines the HBnB console."""
 import cmd
 import re
+from shlex import split
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -10,8 +11,6 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-from shlex import split
-import json
 
 
 def parse(arg):
@@ -34,7 +33,6 @@ def parse(arg):
 
 class HBNBCommand(cmd.Cmd):
     """Defines the HolbertonBnB command interpreter.
-
     Attributes:
         prompt (str): The command prompt.
     """
@@ -112,7 +110,7 @@ class HBNBCommand(cmd.Cmd):
         elif "{}.{}".format(argl[0], argl[1]) not in objdict:
             print("** no instance found **")
         else:
-            print(objdict["{}.{}".format(argl[0], argl[1)])
+            print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destroy(self, arg):
         """Usage: destroy <class> <id> or <class>.destroy(<id>)

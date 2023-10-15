@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+"""Defines unittests for console.py."""
+
 import unittest
 from unittest.mock import patch
 from io import StringIO

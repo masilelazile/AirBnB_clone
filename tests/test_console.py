@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 <<<<<<< HEAD
-<<<<<<< HEAD
 """Defines unittests for console.py.
 Unittest classes:
     TestHBNBCommand_prompting
@@ -14,16 +13,13 @@ Unittest classes:
 """
 import os
 import sys
-=======
-"""Defines unittests for console.py."""
-
->>>>>>> parent of 3d15374... AirBnB clone - The console
 import unittest
-from unittest.mock import patch
+from models import storage
+from models.engine.file_storage import FileStorage
+from console import HBNBCommand
 from io import StringIO
-from console import HBNBCommand 
+from unittest.mock import patch
 
-<<<<<<< HEAD
 
 class TestHBNBCommand_prompting(unittest.TestCase):
     """Unittests for testing prompting of the HBNB command interpreter."""
@@ -1525,14 +1521,15 @@ class TestHBNBCommand_count(unittest.TestCase):
     """Unittests for testing count method of HBNB comand interpreter."""
 
     @classmethod
-=======
-class TestHBNBCommand(unittest.TestCase):
->>>>>>> parent of 3d15374... AirBnB clone - The console
     def setUp(self):
-        self.console = HBNBCommand()
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+        FileStorage._FileStorage__objects = {}
 
+    @classmethod
     def tearDown(self):
-<<<<<<< HEAD
         try:
             os.remove("file.json")
         except IOError:
@@ -1652,47 +1649,5 @@ if __name__ == "__main__":
 
 if __name__ == '__main__':
 >>>>>>> e8eb7ca83b91edece6804237fd7401fe12b7e080
-=======
-        pass  
-
-    def test_create(self):
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("create BaseModel")
-            output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.startswith("****"))
-
-
-    def test_show(self):
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("show BaseModel")
-            output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.startswith("**"))
-
-    def test_destroy(self):
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("destroy BaseModel")
-            output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.startswith("**"))
-
-    def test_all(self):
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("all")
-            output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.startswith("****"))
-
-    def test_count(self):
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("count BaseModel")
-            output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.isdigit())
-
-    def test_update(self):
-        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-            self.console.onecmd("update BaseModel")
-            output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.startswith("**"))
-
-if __name__ == '__main__':
->>>>>>> parent of 3d15374... AirBnB clone - The console
     unittest.main()
 

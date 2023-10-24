@@ -48,4 +48,4 @@ class TestHBNBCommand(unittest.TestCase):
         self.assertTrue(output.startswith("**"))
 
 if __name__ == '__main__':
-    unittest.main().
+    unittest.main()
